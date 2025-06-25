@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block back_button %}
+<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
+  ⬅️ Назад
+</a>
+{% endblock %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center">
+  <div class="bg-blue-100 bg-opacity-40 p-8 rounded-lg shadow-lg w-full max-w-md backdrop-blur-sm border border-blue-200">
+    <h1 class="text-2xl font-bold mb-6 text-center">Регистрация пользователя</h1>
+
+    {% if messages %}
+      <ul class="text-center text-green-600 text-sm mb-4">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+
+      <!-- Username -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Имя пользователя</label>
+        {{ form.username }}
+        {% if form.username.errors %}
+          <p class="text-red-500 text-xs italic">{{ form.username.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Email -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+          <p class="text-red-500 text-xs italic">{{ form.email.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Password -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Пароль</label>
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+          <p class="text-red-500 text-xs italic">{{ form.password1.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Подтвердите пароль</label>
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+          <p class="text-red-500 text-xs italic">{{ form.password2.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Submit -->
+      <div class="flex justify-center">
+        <button
+          class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-200"
+          type="submit"
+        >
+          Зарегистрироваться
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

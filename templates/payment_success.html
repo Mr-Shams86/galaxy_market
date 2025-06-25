@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block back_button %}
+<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
+  ⬅️ Назад
+</a>
+{% endblock %}
+{% block content %}
+
+<style>
+  .fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .pulse-button {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .pulse-button:hover {
+    transform: scale(1.05);
+    background-color: #22c55e; /* чуть ярче */
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="flex flex-col items-center justify-center min-h-screen text-center text-green-600 fade-in">
+  <!-- Иконка подтверждения -->
+  <svg class="w-24 h-24 text-green-500 mb-6" fill="none" stroke="currentColor" stroke-width="2"
+       viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4"/>
+  </svg>
+
+  <h1 class="text-4xl font-bold mb-4">✅ Оплата прошла успешно!</h1>
+  <p class="text-lg mb-6">Спасибо за покупку. Мы скоро с вами свяжемся.</p>
+  <a href="{% url 'products:index' %}"
+     class="pulse-button bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded shadow">
+    ⬅ Вернуться на главную
+  </a>
+</div>
+
+{% endblock %}

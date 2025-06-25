@@ -1,0 +1,48 @@
+{% extends "base.html" %} 
+{% block back_button %}
+<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
+  ⬅️ Назад
+</a>
+{% endblock %} {% block content %}
+<div class="container py-6">
+  <h2 class="text-2xl font-bold mb-4">
+    Профиль {{ profile.user.username }}
+  </h2>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+    <div class="rounded shadow-md">
+      {% if profile.avatar %}
+      <img
+        src="{{ profile.avatar.url }}"
+        alt="Аватар"
+        class="w-72 h-72 object-cover rounded"
+      />
+      {% else %}
+      <img
+        src="{% static 'img/default/default-avatar.png' %}"
+        alt="Нет фото"
+        class="w-72 h-72 object-cover rounded"
+      />
+      {% endif %}
+    </div>
+
+    <div class="lg:col-span-2 space-y-3 text-gray-700">
+      <p><strong>Email:</strong> {{ profile.user.email }}</p>
+      <p><strong>Биография:</strong> {{ profile.bio|default:"—" }}</p>
+      <p><strong>Контакт:</strong> {{ profile.contact_number }}</p>
+      <p>
+        <strong>Создан:</strong> {{ profile.created_at|date:"d.m.Y H:i" }}
+      </p>
+
+      {% if request.user == user %}
+      <a
+        href="{% url 'users:edit_profile' %}"
+        class="inline-block mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        ✏️ Редактировать профиль
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

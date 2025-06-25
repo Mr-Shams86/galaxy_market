@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% load static %}
+{% block back_button %}
+<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
+  ⬅️ Назад
+</a>
+{% endblock %}
+{% block content %}
+<div class="ml-[200px]">
+  <h1 class="text-2xl m-10 font-bold text-red-600">Удаление товара</h1>
+
+  {% if messages %}
+  <ul class="text-sm text-center text-red-600 mb-4">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <form
+    class="bg-white shadow-md m-10 w-3/5 rounded px-8 pt-6 pb-8 mb-4"
+    method="post"
+  >
+    {% csrf_token %}
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2">
+        Вы уверены, что хотите удалить этот товар?
+      </label>
+      <label class="block text-gray-700 text-sm font-bold mb-2">
+        {{ item.name }}
+      </label>
+
+      {% if item.image %}
+        <img class="w-40 h-40 rounded" src="{{ item.image.url }}" alt="Preview" />
+      {% else %}
+        <img class="w-40 h-40 rounded" src="{% static 'img/default/default-image.png' %}" alt="No image" />
+      {% endif %}
+    </div>
+
+    <input
+      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      type="submit"
+      value="Удалить"
+    />
+    <a
+      class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2"
+      href="{% url 'products:index' %}"
+    >
+      Отмена
+    </a>
+  </form>
+</div>
+{% endblock content %}

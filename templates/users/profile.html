@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block back_button %}
+<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
+  ⬅️ Назад
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  {% if user.profile %}
+  <div class="grid p-10 grid-cols-1 lg:grid-cols-3 sm:grid-cols-1 gap-8">
+    <!-- Аватар -->
+    <div class="rounded shadow-lg text-center">
+      {% if user.profile.avatar %}
+        <img src="{{ user.profile.avatar.url }}" alt="Avatar" class="w-72 h-72 object-cover rounded mx-auto" />
+      {% else %}
+        <img src="{% static 'img/default/default-avatar.png' %}" alt="No avatar" class="w-72 h-72 object-cover rounded mx-auto" />
+      {% endif %}
+    </div>
+
+    <!-- Информация -->
+    <div class="lg:col-span-2">
+      <h2 class="text-2xl font-bold mb-2">{{ user.username }}</h2>
+
+      {% if request.user == user %}
+        <a href="{% url 'users:edit_profile' %}" class="inline-block mb-2 text-sm text-blue-600 hover:underline">
+          ✏️ Редактировать профиль
+        </a><br>
+        <a href="{% url 'users:delete_profile' %}" class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-2">
+          🗑 Удалить профиль
+        </a>
+      {% endif %}
+
+      <p class="text-gray-700 mt-4 mb-2"><strong>Email:</strong> {{ user.email }}</p>
+      <p class="text-gray-700 mb-2"><strong>О себе:</strong> {{ user.profile.bio|default:"—" }}</p>
+      <p class="text-gray-700 mb-2"><strong>Телефон:</strong> {{ user.profile.contact_number|default:"—" }}</p>
+      <p class="text-gray-700 mb-2"><strong>Дата регистрации:</strong> {{ user.profile.created_at|date:"d.m.Y H:i" }}</p>
+    </div>
+  </div>
+
+  {% else %}
+  <!-- Профиль ещё не создан -->
+  <div class="text-center mt-10">
+    <h2 class="text-xl font-semibold text-red-500">
+      ⚠️ Профиль ещё не создан.
+    </h2>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded">
+        ➕ Создать профиль
+      </button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

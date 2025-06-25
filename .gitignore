@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.pyc
+
+# Env
+.env
+.venv/
+env/
+venv/
+
+# Django Admin Static
+shop_project/static/admin/
+
+# Node/Tailwind
+node_modules/
+*.log
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+db.sqlite3
+
+media/
+
+url adress in my Gadjet_Shop.txt

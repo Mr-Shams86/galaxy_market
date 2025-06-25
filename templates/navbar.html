@@ -1,0 +1,86 @@
+{% load static %}
+<nav class="bg-gray-900 shadow-lg text-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <!-- ЛОГО -->
+      <div class="flex items-center space-x-3">
+        <a href="{% url 'products:index' %}" class="flex items-center">
+          <img
+            src="{% static 'img/logo/logo.jpg' %}"
+            alt="logo"
+            class="h-20 w-20"
+          />
+          <span class="font-semibold text-xl ml-2">🛒 Galaxy Market</span>
+        </a>
+      </div>
+
+      <!-- НАВИГАЦИЯ -->
+      <div class="flex space-x-5 items-center">
+        <a
+          href="{% url 'products:index' %}"
+          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'index' %}border-b-2 border-green-400{% endif %}"
+        >
+          Главная
+        </a>
+        {% if user.is_authenticated and user.profile.is_seller %}
+        <a
+          href="{% url 'products:add_item' %}"
+          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'add_item' %}border-b-2 border-green-400{% endif %}"
+        >
+          Новый товар
+        </a>
+        {% endif %}
+
+
+        {% if user.is_authenticated %}
+        <a
+          href="{% url 'users:profile' %}"
+          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'profile' %}border-b-2 border-green-400{% endif %}"
+        >
+          Профиль
+        </a>
+        <a
+          href="{% url 'orders:my_orders' %}"
+          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'my_orders' %}border-b-2 border-green-400{% endif %}"
+        >
+          Мои заказы
+        </a>
+        <a
+          href="{% url 'orders:cart' %}"
+          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'cart' %}border-b-2 border-green-400{% endif %}"
+        >
+          Корзина
+        </a>
+        <a
+          href="{% url 'orders:checkout' %}"
+          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'checkout' %}border-b-2 border-green-400{% endif %}"
+        >
+          Оплата
+        </a>
+        <a
+          href="{% url 'reviews:my_reviews' %}"
+          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'my_reviews' %}border-b-2 border-green-400{% endif %}"
+        >
+          Отзывы
+        </a>
+        <form action="{% url 'users:logout' %}" method="post" class="inline">
+          {% csrf_token %}
+          <button
+            type="submit"
+            class="py-2 px-3 font-medium hover:text-red-300 bg-transparent border-none cursor-pointer"
+          >
+            Выйти
+          </button>
+        </form>
+        {% else %}
+        <a
+          href="{% url 'users:login' %}"
+          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'login' %}border-b-2 border-green-400{% endif %}"
+        >
+          Войти или зарегистрироватся
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>

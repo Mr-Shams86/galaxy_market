@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load extras %}
+{% block back_button %}
+<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
+  ⬅️ Назад
+</a>
+{% endblock %}
+{% block content %}
+
+<h2 class="text-2xl font-bold mb-4">💬 Мои отзывы</h2>
+
+<div class="space-y-4">
+  {% if reviews %}
+    {% for review in reviews %}
+      <div class="border p-4 rounded bg-gray-100">
+        <p class="font-semibold">{{ review.product }}</p>
+        <p>{{ review.text }}</p>
+        <p class="text-sm text-gray-600">
+          Оценка:
+          {% for _ in review.rating|star_range %} ⭐ {% endfor %}
+          {% for _ in 5|subtract:review.rating %} ☆ {% endfor %}
+        </p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Вы ещё не оставляли отзывов.</p>
+  {% endif %}
+</div>
+
+{% endblock %}
+
