@@ -1,39 +1,64 @@
-# Python
+# ====================
+# 📌 Python
+# ====================
 __pycache__/
 *.py[cod]
-*.pyc
 *.pyo
 
-# SQLite
+# ====================
+# 🐘 PostgreSQL / SQLite
+# ====================
 *.sqlite3
 db.sqlite3
 
-# Env
+# ====================
+# 🔐 Env
+# ====================
 .env
+.env.*
 .venv/
-env/
 venv/
+env/
 
-# Django Admin Static
-shop_project/static/admin/
+# ====================
+# ⚙️ Django
+# ====================
+# Статические файлы, собранные через collectstatic
+staticfiles/
+static/
 
-# Node/Tailwind
+# Media — загружаемые пользователями файлы
+media/
+
+# ====================
+# 📦 Node / Tailwind
+# ====================
 node_modules/
 *.log
 
-# VSCode
+# ====================
+# 🧠 VSCode / IDE
+# ====================
 .vscode/
+.idea/
 
-# OS
+# ====================
+# 💻 OS системные файлы
+# ====================
 .DS_Store
 Thumbs.db
 
-# Media and user uploads
-media/
+# ====================
+# 📂 Специфичные папки
+# ====================
+# Если хранишь какие-то шаблоны в папке static/img
 static/img/background/
 static/img/default/
 static/img/logo/
 static/products/
 
-# Others
-url adress in my Gadjet_Shop.txt
+# ====================
+# 📄 Прочее
+# ====================
+structure.txt
+url_adress_in_my_Gadjet_Shop.txt
