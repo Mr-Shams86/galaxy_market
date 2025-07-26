@@ -7,6 +7,9 @@
 │   ├── urls.py
 │   └── wsgi.py
 ├── db.sqlite3
+├── docker-compose.yml
+├── Dockerfile
+├── entrypoint.sh
 ├── manage.py
 ├── media
 │   ├── images
@@ -109,4 +112,4 @@
     ├── urls.py
     └── views.py
 
-33 directories, 76 files
+33 directories, 79 files
