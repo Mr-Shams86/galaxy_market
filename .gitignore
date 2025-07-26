@@ -1,8 +1,12 @@
 # Python
 __pycache__/
 *.py[cod]
-*.sqlite3
 *.pyc
+*.pyo
+
+# SQLite
+*.sqlite3
+db.sqlite3
 
 # Env
 .env
@@ -24,8 +28,12 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-db.sqlite3
-
+# Media and user uploads
 media/
+static/img/background/
+static/img/default/
+static/img/logo/
+static/products/
 
+# Others
 url adress in my Gadjet_Shop.txt
