@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block back_button %}
 <a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
   ⬅️ Назад
 </a>
 {% endblock %}
+
 {% block content %}
-<div class="flex justify-center items-center min-h-screen">
+<main class="px-4 flex flex-col items-center">
+
+  <!-- Контейнер формы -->
   <div class="w-full max-w-md bg-blue-50 bg-opacity-90 p-8 rounded-lg shadow-xl">
     <h1 class="text-2xl font-bold text-center text-green-600 mb-6">Добавить новый товар</h1>
 
-    {# Flash-сообщения #}
+    <!-- Flash-сообщения -->
     {% if messages %}
       <div class="mb-4">
         {% for message in messages %}
@@ -21,10 +25,11 @@
       </div>
     {% endif %}
 
+    <!-- Форма добавления товара -->
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
 
-      {# Name #}
+      <!-- Название товара -->
       <div class="mb-4">
         <label for="name" class="block text-gray-700 font-semibold mb-1">Название товара</label>
         <input
@@ -32,7 +37,7 @@
           name="name"
           id="name"
           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-          placeholder="Enter item name"
+          placeholder="Введите название"
           value="{{ form.name.value|default_if_none:'' }}"
         />
         {% if form.name.errors %}
@@ -40,7 +45,7 @@
         {% endif %}
       </div>
 
-      {# Price #}
+      <!-- Цена товара -->
       <div class="mb-4">
         <label for="price" class="block text-gray-700 font-semibold mb-1">Цена товара</label>
         <input
@@ -49,7 +54,7 @@
           name="price"
           id="price"
           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-          placeholder="Enter price"
+          placeholder="Введите цену"
           value="{{ form.price.value|default_if_none:'' }}"
         />
         {% if form.price.errors %}
@@ -57,7 +62,7 @@
         {% endif %}
       </div>
 
-      {# Description #}
+      <!-- Описание -->
       <div class="mb-4">
         <label for="description" class="block text-gray-700 font-semibold mb-1">Описание товара</label>
         <input
@@ -65,7 +70,7 @@
           name="description"
           id="description"
           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-          placeholder="Enter description"
+          placeholder="Введите описание"
           value="{{ form.description.value|default_if_none:'' }}"
         />
         {% if form.description.errors %}
@@ -73,7 +78,7 @@
         {% endif %}
       </div>
 
-      {# Category #}
+      <!-- Категория -->
       <div class="mb-4">
         <label for="category" class="block text-gray-700 font-semibold mb-1">Категория товара</label>
         <select
@@ -96,7 +101,7 @@
         {% endif %}
       </div>
 
-      {# Image Upload #}
+      <!-- Изображение -->
       <div class="mb-4">
         <label for="id_image" class="block text-gray-700 font-semibold mb-1">Загрузить изображение</label>
         <input
@@ -111,7 +116,7 @@
         {% endif %}
       </div>
 
-
+      <!-- Кнопка -->
       <button
         type="submit"
         class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
@@ -120,5 +125,5 @@
       </button>
     </form>
   </div>
-</div>
+</main>
 {% endblock %}

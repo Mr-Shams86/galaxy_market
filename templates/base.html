@@ -14,13 +14,13 @@
       background-image: url('{% static 'img/background/background.png' %}');
     "
   >
-  <div class="container mx-auto p-4">
-    {% block back_button %}{% endblock %}
-  </div>
-  
+    <!-- Навигация должна быть первой -->
     {% include 'navbar.html' %}
 
-    <!-- Сообщения Django (успех / ошибка) -->
+    <!-- Кнопка назад (если есть) -->
+    {% block back_button %}{% endblock %}
+
+    <!-- Сообщения Django -->
     {% if messages %}
     <ul class="text-center text-green-600 text-sm mb-4">
       {% for message in messages %}
@@ -29,8 +29,9 @@
     </ul>
     {% endif %}
 
+    <!-- Контент -->
     <div class="p-6">
-      {% block content %} <h1>Добро пожаловать в Galaxy Market!</h1> {% endblock %}
+      {% block content %}<h1>Добро пожаловать в Galaxy Market!</h1>{% endblock %}
     </div>
   </body>
 </html>
