@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "orders",
     "reviews",
     "corsheaders",
+    "widget_tweaks",
 ]
 
 # --- MIDDLEWARE ---

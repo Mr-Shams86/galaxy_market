@@ -21,11 +21,11 @@
     </div>
 
     <!-- Информация -->
-    <div class="lg:col-span-2">
+    <div class="lg:col-span-2 p-6 rounded-xl bg-black/30 backdrop-blur text-white">
       <h2 class="text-2xl font-bold mb-2">{{ user.username }}</h2>
 
       {% if request.user == user %}
-        <a href="{% url 'users:edit_profile' %}" class="inline-block mb-2 text-sm text-blue-600 hover:underline">
+        <a href="{% url 'users:edit_profile' %}" class="inline-block mb-2 text-sm text-blue-300 hover:underline">
           ✏️ Редактировать профиль
         </a><br>
         <a href="{% url 'users:delete_profile' %}" class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-2">
@@ -33,10 +33,10 @@
         </a>
       {% endif %}
 
-      <p class="text-gray-700 mt-4 mb-2"><strong>Email:</strong> {{ user.email }}</p>
-      <p class="text-gray-700 mb-2"><strong>О себе:</strong> {{ user.profile.bio|default:"—" }}</p>
-      <p class="text-gray-700 mb-2"><strong>Телефон:</strong> {{ user.profile.contact_number|default:"—" }}</p>
-      <p class="text-gray-700 mb-2"><strong>Дата регистрации:</strong> {{ user.profile.created_at|date:"d.m.Y H:i" }}</p>
+      <p class="mt-4 mb-2"><strong>Email:</strong> {{ user.email }}</p>
+      <p class="mb-2"><strong>О себе:</strong> {{ user.profile.bio|default:"—" }}</p>
+      <p class="mb-2"><strong>Телефон:</strong> {{ user.profile.contact_number|default:"—" }}</p>
+      <p class="mb-2"><strong>Дата регистрации:</strong> {{ user.profile.created_at|date:"d.m.Y H:i" }}</p>
     </div>
   </div>
 

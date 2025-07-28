@@ -1,40 +1,64 @@
 {% extends "base.html" %}
 {% load static %}
+{% load widget_tweaks %}
+
 
 {% block back_button %}
-<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
+<a href="javascript:history.back()" class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mb-4">
   ⬅️ Назад
 </a>
 {% endblock %}
 
 {% block content %}
-<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded">
-  <h2 class="text-2xl font-bold mb-6 text-center">Редактировать профиль</h2>
+<div class="flex justify-center items-start min-h-screen pt-10">
+  <div class="bg-black bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md text-white">
 
-  {# Уведомления (например, успешное сохранение) #}
-  {% if messages %}
-  <ul class="mb-4 text-green-600 text-center text-sm">
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+    <h2 class="text-2xl font-bold mb-6 text-green-400 text-center">Редактировать профиль</h2>
 
-  <form method="POST" enctype="multipart/form-data" class="space-y-4">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    {% if profile.avatar %}
-    <div class="text-center">
-      <img src="{{ profile.avatar.url }}" alt="avatar" width="100" class="rounded-full mx-auto" />
-    </div>
+    {% if messages %}
+    <ul class="mb-4 text-green-400 text-center text-sm">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
     {% endif %}
 
-    <div class="text-center">
-      <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-        💾 Сохранить
-      </button>
-    </div>
-  </form>
+    <form method="POST" enctype="multipart/form-data" class="space-y-4">
+      {% csrf_token %}
+
+      <div>
+        <label class="block mb-1 text-green-300">Никнейм:</label>
+        {{ form.nickname|add_class:"w-full px-4 py-2 rounded bg-gray-800 text-white" }}
+      </div>
+
+      <div>
+        <label class="block mb-1 text-green-300">О себе:</label>
+        {{ form.bio|add_class:"w-full px-4 py-2 rounded bg-gray-800 text-white" }}
+      </div>
+
+      <div>
+        <label class="block mb-1 text-green-300">Фото профиля:</label>
+        {{ form.avatar|add_class:"w-full file:bg-gray-800 file:text-white file:border file:rounded" }}
+      </div>
+
+      <div>
+        <label class="block mb-1 text-green-300">Контактный номер:</label>
+        {{ form.contact_number|add_class:"w-full px-4 py-2 rounded bg-gray-800 text-white" }}
+      </div>
+
+      {% if profile.avatar %}
+      <div class="text-center mt-4">
+        <img src="{{ profile.avatar.url }}" alt="avatar" width="100" class="rounded-full mx-auto" />
+      </div>
+      {% endif %}
+
+      <div class="text-center mt-6">
+        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded w-full">
+          💾 Сохранить
+        </button>
+      </div>
+    </form>
+
+  </div>
 </div>
 {% endblock %}
