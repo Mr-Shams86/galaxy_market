@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="flex justify-center mt-12">
+  <div class="bg-black bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-2xl text-white border border-gray-700">
+    <h2 class="text-2xl font-bold text-green-400 mb-6 text-center">Выход из аккаунта</h2>
+
+    <p class="text-center text-gray-300 mb-6">Вы точно хотите выйти из аккаунта?</p>
+
+    <form method="post" class="flex flex-col space-y-4">
+      {% csrf_token %}
+      <button type="submit"
+        formaction="{% url 'users:logout' %}"
+        class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded w-full">
+        🚪 Выйти
+      </button>
+      <a href="{% url 'products:index' %}"
+        class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded text-center w-full">
+        ❌ Отмена
+      </a>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

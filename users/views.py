@@ -94,3 +94,13 @@ def seller_profile(request, user_id):
             "profile": seller.profile,
         },
     )
+
+
+# ✅ Подтверждение выхода из аккаунта
+@login_required
+def logout_confirm(request):
+    if request.method == "POST":
+        logout(request)
+        messages.info(request, "Вы вышли из аккаунта.")
+        return redirect("products:index")
+    return render(request, "users/logout_confirm.html")

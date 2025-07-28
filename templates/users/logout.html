@@ -1,19 +1,24 @@
-{% extends "base.html" %} 
-{% block back_button %}
-<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
-  ⬅️ Назад
-</a>
-{% endblock %} {% block content %}
+{% extends "base.html" %}
+{% block content %}
 
-<div class="max-w-md mx-auto mt-20 p-6 bg-white rounded shadow-md text-center">
-  <h1 class="text-2xl font-bold text-green-600 mb-4">Вы вышли из аккаунта</h1>
-  <p class="text-gray-700">Ждём вас снова 👋</p>
-  <a
-    href="{% url 'products:index' %}"
-    class="mt-6 inline-block text-blue-500 hover:underline"
-  >
-    ⬅ Вернуться на главную
-  </a>
+<div class="max-w-md mx-auto mt-20 p-6 bg-black/70 text-white rounded-xl shadow-lg text-center">
+  <h1 class="text-2xl font-bold text-red-500 mb-4">Вы точно хотите выйти?</h1>
+  <p class="text-gray-300 mb-6">После выхода вы попадёте на главную страницу.</p>
+
+  <div class="flex flex-col sm:flex-row justify-center gap-4">
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit"
+              class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded w-full">
+        🚪 Выйти
+      </button>
+    </form>
+
+    <a href="{% url 'products:index' %}"
+       class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded text-center w-full">
+      ⬅️ Отмена
+    </a>
+  </div>
 </div>
 
-{% endblock content %}
+{% endblock %}
