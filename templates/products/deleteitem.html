@@ -1,52 +1,56 @@
-{% extends "base.html" %} {% load static %}
-{% block back_button %}
-<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
-  ⬅️ Назад
-</a>
-{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+
 {% block content %}
-<div class="ml-[200px]">
-  <h1 class="text-2xl m-10 font-bold text-red-600">Удаление товара</h1>
+<div class="flex items-center justify-center px-4 mt-10 mb-16">
+  <div class="relative bg-gradient-to-br from-slate-800/70 to-slate-900/70 border border-slate-500/30 backdrop-blur-sm shadow-2xl text-white p-10 rounded-2xl max-w-3xl w-full text-center">
 
-  {% if messages %}
-  <ul class="text-sm text-center text-red-600 mb-4">
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+    <!-- Заголовок -->
+    <h1 class="text-2xl font-extrabold text-red-500 mb-4">Удаление товара</h1>
 
-  <form
-    class="bg-white shadow-md m-10 w-3/5 rounded px-8 pt-6 pb-8 mb-4"
-    method="post"
-  >
-    {% csrf_token %}
-    <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2">
-        Вы уверены, что хотите удалить этот товар?
-      </label>
-      <label class="block text-gray-700 text-sm font-bold mb-2">
-        {{ item.name }}
-      </label>
+    <!-- Сообщения об ошибках -->
+    {% if messages %}
+      <ul class="text-sm text-red-400 mb-4">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
 
-      {% if item.image %}
-        <img class="w-40 h-40 rounded" src="{{ item.image.url }}" alt="Preview" />
-      {% else %}
-        <img class="w-40 h-40 rounded" src="{% static 'img/default/default-image.png' %}" alt="No image" />
-      {% endif %}
-    </div>
+    <!-- Название и подтверждение -->
+    <p class="text-lg font-semibold mb-2">Вы уверены, что хотите удалить этот товар?</p>
+    <p class="text-xl font-bold mb-4">{{ item.name }}</p>
 
-    <input
-      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-      type="submit"
-      value="Удалить"
-    />
-    <a
-      class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2"
-      href="{% url 'products:index' %}"
-    >
-      Отмена
+    <!-- Фото -->
+    {% if item.image %}
+      <img class="w-52 h-52 object-cover mx-auto mb-6 rounded-lg shadow-lg" src="{{ item.image.url }}" alt="{{ item.name }}">
+    {% else %}
+      <img class="w-52 h-52 object-cover mx-auto mb-6 rounded-lg shadow-lg" src="{% static 'img/default/default-image.png' %}" alt="No image">
+    {% endif %}
+
+    <!-- Кнопки действия -->
+    <form method="post" class="mb-4">
+      {% csrf_token %}
+      <div class="flex justify-center gap-6">
+        <input
+          type="submit"
+          value="Удалить"
+          class="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-6 rounded"
+        />
+        <a
+          href="{% url 'products:index' %}"
+          class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-6 rounded"
+        >
+          Отмена
+        </a>
+      </div>
+    </form>
+
+    <!-- Кнопка Назад -->
+    <a href="javascript:history.back()" class="inline-block mt-4 bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
+      ⬅️ Назад
     </a>
-  </form>
+
+  </div>
 </div>
-{% endblock content %}
+{% endblock %}

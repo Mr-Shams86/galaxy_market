@@ -75,6 +75,11 @@ class ProductUpdateView(LoginRequiredMixin, SellerRequiredMixin, UpdateView):
     fields = ["name", "price", "description", "image"]
     success_url = reverse_lazy("products:index")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['item'] = self.get_object()
+        return context
+
     def form_valid(self, form):
         image = self.request.FILES.get("image")
         if image:
@@ -93,10 +98,16 @@ class ProductDeleteView(LoginRequiredMixin, SellerRequiredMixin, DeleteView):
     pk_url_kwarg = "pk"
     success_url = reverse_lazy("products:index")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["item"] = self.get_object()
+        return context
+
     def delete(self, request, *args, **kwargs):
         obj = self.get_object()
         messages.success(self.request, f"Товар «{obj.name}» успешно удалён!")
         return super().delete(request, *args, **kwargs)
+
 
 
 @login_required
