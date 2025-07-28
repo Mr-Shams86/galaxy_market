@@ -1,10 +1,5 @@
 {% extends "base.html" %}
 {% load static humanize %}
-{% block back_button %}
-<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
-  ⬅️ Назад
-</a>
-{% endblock %}
 {% block content %}
 
 <!-- 🔔 Сообщения Django -->
@@ -66,9 +61,17 @@
       <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded shadow" id="checkout">
         Купить
       </button>
+
       {% else %}
       <p class="text-red-400">Чтобы купить товар, войдите в аккаунт.</p>
       {% endif %}
+
+      <!-- 🔽 Кнопка Назад -->
+      <div class="text-center mt-6">
+        <a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
+          ⬅️ Назад
+        </a>
+      </div> 
     </div>
 
   </div>
