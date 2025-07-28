@@ -2,49 +2,51 @@
 {% load static %}
 {% block content %}
 
-<main class="mt-12 mx-auto max-w-5xl px-4 text-center">
-<section class="bg-cover bg-center py-16 px-4 text-white" style="background-image: url('/static/img/background/your-banner.jpg');">
-  <div class="bg-black/60 p-6 rounded-xl max-w-2xl mx-auto text-center border border-gray-700">
-    <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
-      🔧 Оригинальные запчасти и аксессуары Samsung 🛠
-    </h1>
-    <p class="text-lg md:text-xl text-gray-200 mb-12">
-      📦 Закажите надёжные комплектующие с бесплатной доставкой по Ташкенту 🚚
-    </p>
+<main class="mt-2 mx-auto max-w-5xl px-4 text-center">
+  <!-- HERO -->
+  <section class="bg-cover bg-center pt-4 pb-2 px-4 text-white"
+           style="background-image: url('{% static 'img/background/background.png' %}');">
+    <div class="bg-black/60 p-6 rounded-xl max-w-2xl mx-auto text-center border border-gray-700">
+      <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-4">
+        🔧 Оригинальные запчасти и аксессуары Samsung 🛠
+      </h1>
+      <p class="text-lg md:text-xl text-gray-200 mb-6">
+        📦 Закажите надёжные комплектующие с бесплатной доставкой по Ташкенту 🚚
+      </p>
 
-    <!-- Поисковая форма -->
-    <form method="get"
-          class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 mx-auto w-full sm:w-auto">
-      <input type="search" name="search"
-            placeholder="Поиск товара..."
-            class="px-4 py-2 rounded-lg text-black w-[300px] sm:w-80 max-w-full focus:outline-none focus:ring-2 focus:ring-green-400" />
-      <button type="submit"
-              class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium whitespace-nowrap">
-        🔍 Найти
-      </button>
-    </form>
-  </div>
-</section>
+      <!-- Поиск -->
+      <form method="get"
+            class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 mx-auto w-full sm:w-auto">
+        <input type="search" name="search"
+              placeholder="Поиск товара..."
+              class="px-4 py-2 rounded-lg text-black w-[300px] sm:w-80 max-w-full focus:outline-none focus:ring-2 focus:ring-green-400" />
+        <button type="submit"
+                class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium whitespace-nowrap">
+          🔍 Найти
+        </button>
+      </form>
+    </div>
+  </section>
 
   <!-- Pagination top -->
-  <div class="text-center my-4">
+  <div class="text-center mb-1 mt-0" aria-label="Навигация по страницам">
     {% if page_obj.has_previous %}
-      <a href="?page=1">&laquo;</a>
-      <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+      <a href="?page=1" class="px-2 text-green-300 hover:underline">&laquo;</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="px-2 text-green-300 hover:underline">&lt;</a>
     {% endif %}
-    <span>{{ page_obj.number }}</span>
+    <span class="px-2 font-semibold text-white">{{ page_obj.number }}</span>
     {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
-      <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+      <a href="?page={{ page_obj.next_page_number }}" class="px-2 text-green-300 hover:underline">&gt;</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="px-2 text-green-300 hover:underline">&raquo;</a>
     {% endif %}
   </div>
 
-  <!-- Items Grid -->
-  <div class="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">
+  <!-- Каталог товаров -->
+  <div class="mt-2 pb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4">
     {% for item in page_obj %}
     <a href="{% url 'products:detail' item.id %}">
       <div class="rounded-2xl shadow-md bg-white/20 backdrop-blur-md border border-white/20 
-              hover:shadow-xl transition-all duration-300 overflow-hidden text-white flex flex-col h-full">
+                  hover:shadow-xl transition-all duration-300 overflow-hidden text-white flex flex-col h-full">
 
         <!-- Изображение -->
         <div class="h-[200px] w-full flex items-center justify-center bg-black/10">
@@ -56,7 +58,7 @@
         </div>
 
         <!-- Информация -->
-    <div class="px-4 py-3 text-sm flex-grow flex flex-col justify-between">
+        <div class="px-4 py-3 text-sm flex-grow flex flex-col justify-between">
           <h3 class="font-semibold text-lg mb-1">{{ item.name }}</h3>
           <p class="text-green-400 font-bold mb-1">$ {{ item.price }}</p>
           <p class="text-blue-300 text-sm mb-2">by: {{ item.seller }}</p>
@@ -64,21 +66,19 @@
         </div>
       </div>
     </a>
-
-
     {% endfor %}
   </div>
 
   <!-- Pagination bottom -->
-  <div class="text-center mt-6">
+  <div class="text-center mt-6" aria-label="Навигация по страницам">
     {% if page_obj.has_previous %}
-      <a href="?page=1">&laquo;</a>
-      <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+      <a href="?page=1" class="px-2 text-green-300 hover:underline">&laquo;</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="px-2 text-green-300 hover:underline">&lt;</a>
     {% endif %}
-    <span>{{ page_obj.number }}</span>
+    <span class="px-2 font-semibold text-white">{{ page_obj.number }}</span>
     {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
-      <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+      <a href="?page={{ page_obj.next_page_number }}" class="px-2 text-green-300 hover:underline">&gt;</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="px-2 text-green-300 hover:underline">&raquo;</a>
     {% endif %}
   </div>
 </main>
