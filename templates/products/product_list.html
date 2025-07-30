@@ -63,6 +63,12 @@
           <p class="text-green-400 font-bold mb-1">$ {{ item.price }}</p>
           <p class="text-blue-300 text-sm mb-2">by: {{ item.seller }}</p>
           <p class="text-white/80 text-sm">{{ item.description|truncatewords:20 }}</p>
+
+          <!-- Кнопка "Купить" -->
+          <a href="{% url 'orders:add_to_cart' item.id %}"
+            class="mt-2 inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            🛒 Купить
+          </a>
         </div>
       </div>
     </a>
