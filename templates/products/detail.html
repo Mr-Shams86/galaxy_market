@@ -58,13 +58,22 @@
       {% endif %}
 
       {% if user.is_authenticated %}
-      <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded shadow" id="checkout">
-        Купить
-      </button>
+      <div class="flex gap-4">
+        <!-- Добавить в корзину -->
+        <a href="{% url 'orders:add_to_cart' item.id %}"
+          class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded shadow">
+          🛒 В корзину
+        </a>
 
+        <!-- Купить через Stripe -->
+        <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded shadow" id="checkout">
+          💳 Купить
+        </button>
+      </div>
       {% else %}
-      <p class="text-red-400">Чтобы купить товар, войдите в аккаунт.</p>
+        <p class="text-red-400">Чтобы купить товар, войдите в аккаунт.</p>
       {% endif %}
+
 
       <!-- 🔽 Кнопка Назад -->
       <div class="text-center mt-6">
