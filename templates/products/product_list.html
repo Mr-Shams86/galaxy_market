@@ -43,37 +43,40 @@
 
   <!-- Каталог товаров -->
   <div class="mt-2 pb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4">
-    {% for item in page_obj %}
+  {% for item in page_obj %}
+  <div class="rounded-2xl shadow-md bg-white/20 backdrop-blur-md border border-white/20 
+              hover:shadow-xl transition-all duration-300 overflow-hidden text-white flex flex-col h-full">
+
+    <!-- Ссылка оборачивает только изображение -->
     <a href="{% url 'products:detail' item.id %}">
-      <div class="rounded-2xl shadow-md bg-white/20 backdrop-blur-md border border-white/20 
-                  hover:shadow-xl transition-all duration-300 overflow-hidden text-white flex flex-col h-full">
-
-        <!-- Изображение -->
-        <div class="h-[200px] w-full flex items-center justify-center bg-black/10">
-          {% if item.image %}
-            <img class="object-contain h-full w-full" src="{{ item.image.url }}" alt="{{ item.name }}" />
-          {% else %}
-            <img class="object-contain h-full w-full" src="{% static 'img/default/default-image.png' %}" alt="No Image" />
-          {% endif %}
-        </div>
-
-        <!-- Информация -->
-        <div class="px-4 py-3 text-sm flex-grow flex flex-col justify-between">
-          <h3 class="font-semibold text-lg mb-1">{{ item.name }}</h3>
-          <p class="text-green-400 font-bold mb-1">$ {{ item.price }}</p>
-          <p class="text-blue-300 text-sm mb-2">by: {{ item.seller }}</p>
-          <p class="text-white/80 text-sm">{{ item.description|truncatewords:20 }}</p>
-
-          <!-- Кнопка "В корзину" -->
-          <a href="{% url 'orders:add_to_cart' item.id %}"
-            class="mt-2 inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-            🛒 В корзину
-          </a>
-        </div>
+      <div class="h-[200px] w-full flex items-center justify-center bg-black/10">
+        {% if item.image %}
+          <img class="object-contain h-full w-full" src="{{ item.image.url }}" alt="{{ item.name }}" />
+        {% else %}
+          <img class="object-contain h-full w-full" src="{% static 'img/default/default-image.png' %}" alt="No Image" />
+        {% endif %}
       </div>
     </a>
-    {% endfor %}
+
+    <!-- Информация -->
+    <div class="px-4 py-3 text-sm flex-grow flex flex-col justify-between">
+      <a href="{% url 'products:detail' item.id %}">
+        <h3 class="font-semibold text-lg mb-1 hover:underline">{{ item.name }}</h3>
+      </a>
+      <p class="text-green-400 font-bold mb-1">$ {{ item.price }}</p>
+      <p class="text-blue-300 text-sm mb-2">by: {{ item.seller }}</p>
+      <p class="text-white/80 text-sm">{{ item.description|truncatewords:20 }}</p>
+
+      <!-- Кнопка "В корзину" -->
+      <a href="{% url 'orders:add_to_cart' item.id %}"
+        class="mt-2 inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        🛒 В корзину
+      </a>
+    </div>
   </div>
+  {% endfor %}
+</div>
+
 
   <!-- Pagination bottom -->
   <div class="text-center mt-6" aria-label="Навигация по страницам">
