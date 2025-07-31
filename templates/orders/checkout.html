@@ -9,13 +9,42 @@
 
 {% block content %}
 <div class="flex items-center justify-center px-4 mt-10 mb-10">
-  <div class="lg:col-span-2 p-6 rounded-xl bg-black/30 backdrop-blur text-white border border-gray-700">
+  <div class="lg:col-span-2 p-6 rounded-xl bg-black/30 backdrop-blur text-white border border-gray-700 w-full max-w-lg">
     <h2 class="text-2xl font-bold mb-6">🧾 Оформление заказа</h2>
 
-    <form method="post">
+    <form method="post" novalidate>
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+
+      <!-- Имя -->
+      <div class="mb-4">
+        <label for="{{ form.name.id_for_label }}" class="block font-semibold mb-1">Имя</label>
+        {{ form.name }}
+        {% if form.name.errors %}
+          <p class="text-red-500 text-sm">{{ form.name.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Телефон -->
+      <div class="mb-4">
+        <label for="{{ form.phone.id_for_label }}" class="block font-semibold mb-1">Телефон</label>
+        {{ form.phone }}
+        {% if form.phone.errors %}
+          <p class="text-red-500 text-sm">{{ form.phone.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Адрес -->
+      <div class="mb-4">
+        <label for="{{ form.address.id_for_label }}" class="block font-semibold mb-1">Адрес</label>
+        {{ form.address }}
+        {% if form.address.errors %}
+          <p class="text-red-500 text-sm">{{ form.address.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Кнопка -->
+      <button type="submit"
+              class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 w-full">
         ✅ Подтвердить заказ
       </button>
     </form>

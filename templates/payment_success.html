@@ -1,25 +1,23 @@
 {% extends "base.html" %}
+
 {% block back_button %}
 <a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
   ⬅️ Назад
 </a>
 {% endblock %}
-{% block content %}
 
+{% block content %}
 <style>
   .fade-in {
     animation: fadeIn 1s ease-in-out;
   }
-
   .pulse-button {
     transition: transform 0.3s ease, background-color 0.3s ease;
   }
-
   .pulse-button:hover {
     transform: scale(1.05);
-    background-color: #22c55e; /* чуть ярче */
+    background-color: #22c55e;
   }
-
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -27,24 +25,36 @@
 </style>
 
 <div class="flex flex-col items-center justify-center min-h-screen text-center text-green-600 fade-in">
-  <!-- Иконка подтверждения -->
-  <svg class="w-24 h-24 text-green-500 mb-6" fill="none" stroke="currentColor" stroke-width="2"
-       viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+  <!-- ✅ Иконка -->
+  <svg class="w-24 h-24 text-green-500 mb-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10"/>
     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4"/>
   </svg>
 
-  <h1 class="text-4xl font-bold mb-4">✅ Оплата прошла успешно!</h1>
-  <p class="text-lg mb-6">Спасибо за покупку. Мы скоро с вами свяжемся.</p>
-  <a href="{% url 'products:index' %}"
-     class="pulse-button bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded shadow">
+  <!-- 🎉 Основное сообщение -->
+  <h1 class="text-4xl font-bold mb-4">Оплата прошла успешно!</h1>
+  <p class="text-lg mb-6 text-white">Спасибо за покупку. Мы скоро с вами свяжемся.</p>
+
+  <!-- 🔢 Информация о заказе -->
+  {% if order %}
+  <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-white text-left max-w-md w-full mb-6">
+    <h2 class="text-xl font-bold mb-2">Информация о заказе</h2>
+    <p><strong>Номер заказа:</strong> #{{ order.id }}</p>
+    <p><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+    <p><strong>Сумма:</strong> {{ order.total_price }} сум</p>
+    <p><strong>Адрес:</strong> {{ order.address }}</p>
+  </div>
+  {% endif %}
+
+  <!-- 🔙 Кнопка назад -->
+  <a href="{% url 'products:index' %}" class="pulse-button bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded shadow">
     ⬅ Вернуться на главную
   </a>
 
+  <!-- 👏 Финальное сообщение -->
   <div class="text-center mt-10 text-white">
-  <h2 class="text-3xl font-bold">🎉 Спасибо за заказ!</h2>
-  <p class="mt-4 text-lg">Мы скоро с вами свяжемся.</p>
+    <h2 class="text-3xl font-bold">🎉 Спасибо за заказ!</h2>
+    <p class="mt-4 text-lg">Мы скоро с вами свяжемся.</p>
+  </div>
 </div>
-</div>
-
 {% endblock %}

@@ -13,7 +13,10 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(
-            attrs={"class": "focus:outline-none", "placeholder": "mail@mail.com"}
+            attrs={
+                "class": "w-full px-4 py-2 rounded bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500",
+                "placeholder": "mail@mail.com"
+            }
         ),
         label="Email",
         help_text="Введите рабочий email — он будет использоваться как логин",
@@ -22,13 +25,19 @@ class CustomUserCreationForm(UserCreationForm):
     password1 = forms.CharField(
         label="Пароль",
         widget=forms.PasswordInput(
-            attrs={"class": "focus:outline-none", "placeholder": "Введите пароль"}
+            attrs={
+                "class": "w-full px-4 py-2 rounded bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500",
+                "placeholder": "Введите пароль"
+            }
         ),
     )
     password2 = forms.CharField(
         label="Подтверждение пароля",
         widget=forms.PasswordInput(
-            attrs={"class": "focus:outline-none", "placeholder": "Повторите пароль"}
+            attrs={
+                "class": "w-full px-4 py-2 rounded bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500",
+                "placeholder": "Повторите пароль"
+            }
         ),
     )
 
@@ -56,6 +65,7 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
 
 
 # -------------------------
@@ -101,10 +111,11 @@ class ProfileForm(forms.ModelForm):
         return profile
 
     def clean_contact_number(self):
-        contact_number = self.cleaned_data["contact_number"]
-        if not contact_number.startswith("+998"):
+        contact_number = self.cleaned_data.get("contact_number")
+        if contact_number and not contact_number.startswith("+998"):
             raise forms.ValidationError("Номер должен начинаться с +998")
         return contact_number
+
 
     def clean_bio(self):
         bio = self.cleaned_data["bio"]
@@ -121,3 +132,40 @@ class ProfileForm(forms.ModelForm):
         ):
             raise forms.ValidationError("Этот никнейм уже занят.")
         return nickname
+
+
+# -------------------------
+# Оформление заказа
+# -------------------------
+
+class CheckoutForm(forms.Form):
+    name = forms.CharField(
+        label="Ваше имя",
+        max_length=100,
+        widget=forms.TextInput(attrs={
+            "class": "w-full px-4 py-2 rounded bg-white text-black mb-2",
+            "placeholder": "Введите имя"
+        })
+    )
+    phone = forms.CharField(
+        label="Телефон",
+        max_length=20,
+        widget=forms.TextInput(attrs={
+            "class": "w-full px-4 py-2 rounded bg-white text-black mb-2",
+            "placeholder": "+998901234567"
+        })
+    )
+    address = forms.CharField(
+        label="Адрес доставки",
+        max_length=255,
+        widget=forms.TextInput(attrs={
+            "class": "w-full px-4 py-2 rounded bg-white text-black mb-2",
+            "placeholder": "Например: г. Ташкент, ул. Авиационная, д. 3"
+        })
+    )
+
+    def clean_phone(self):
+        phone = self.cleaned_data["phone"]
+        if not phone.startswith("+998"):
+            raise forms.ValidationError("Номер должен начинаться с +998")
+        return phone

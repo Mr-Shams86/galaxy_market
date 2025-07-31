@@ -39,33 +39,43 @@ def checkout_view(request):
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         if form.is_valid():
+            products = Product.objects.filter(id__in=cart.keys())
+            
+            total = 0
+            for product in products:
+                quantity = cart.get(str(product.id), 0)
+                total += product.price * quantity
+
             # Сохраняем заказ
             order = Order.objects.create(
                 user=request.user,
                 name=form.cleaned_data['name'],
                 phone=form.cleaned_data['phone'],
                 address=form.cleaned_data['address'],
+                total_price=total
             )
 
-            products = Product.objects.filter(id__in=cart.keys())
+            # Сохраняем позиции заказа
             for product in products:
-                quantity = cart[str(product.id)]
-                OrderItem.objects.create(
-                    order=order,
-                    product=product,
-                    quantity=quantity,
-                    price=product.price,
-                )
+                quantity = cart.get(str(product.id), 0)
+                if quantity > 0:
+                    OrderItem.objects.create(
+                        order=order,
+                        product=product,
+                        quantity=quantity,
+                        price=product.price,
+                    )
 
             # Очищаем корзину
             request.session['cart'] = {}
             request.session.modified = True
 
-            return redirect('orders:success')  # Страница "Спасибо"
+            return redirect('orders:success')
     else:
         form = CheckoutForm()
 
     return render(request, 'orders/checkout.html', {'form': form})
+
 
 @login_required
 def add_to_cart(request, product_id):
@@ -118,5 +128,8 @@ def my_orders_view(request):
     return render(request, "orders/my_orders.html", {"orders": orders})
 
 
+@login_required
 def success_view(request):
-    return render(request, 'payment_success.html')
+    latest_order = Order.objects.filter(user=request.user).order_by('-created_at').first()
+    return render(request, 'payment_success.html', {'order': latest_order})
+
