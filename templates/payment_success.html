@@ -1,60 +1,39 @@
 {% extends "base.html" %}
 
-{% block back_button %}
-<a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
-  ⬅️ Назад
-</a>
-{% endblock %}
-
 {% block content %}
-<style>
-  .fade-in {
-    animation: fadeIn 1s ease-in-out;
-  }
-  .pulse-button {
-    transition: transform 0.3s ease, background-color 0.3s ease;
-  }
-  .pulse-button:hover {
-    transform: scale(1.05);
-    background-color: #22c55e;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-</style>
+<div class="flex flex-col items-center text-center text-green-600 fade-in px-4 mt-10 mb-16">
 
-<div class="flex flex-col items-center justify-center min-h-screen text-center text-green-600 fade-in">
+
   <!-- ✅ Иконка -->
-  <svg class="w-24 h-24 text-green-500 mb-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+  <svg class="w-20 h-20 text-green-500 mb-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="10"/>
     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4"/>
   </svg>
 
-  <!-- 🎉 Основное сообщение -->
-  <h1 class="text-4xl font-bold mb-4">Оплата прошла успешно!</h1>
-  <p class="text-lg mb-6 text-white">Спасибо за покупку. Мы скоро с вами свяжемся.</p>
+  <!-- 🎉 Сообщение -->
+  <h1 class="text-3xl md:text-4xl font-bold mb-3">Оплата прошла успешно!</h1>
+  <p class="text-white mb-6">Спасибо за покупку. Мы скоро с вами свяжемся.</p>
 
-  <!-- 🔢 Информация о заказе -->
+  <!-- 🧾 Информация о заказе -->
   {% if order %}
-  <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-white text-left max-w-md w-full mb-6">
-    <h2 class="text-xl font-bold mb-2">Информация о заказе</h2>
-    <p><strong>Номер заказа:</strong> #{{ order.id }}</p>
-    <p><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
-    <p><strong>Сумма:</strong> {{ order.total_price }} сум</p>
-    <p><strong>Адрес:</strong> {{ order.address }}</p>
+  <div class="bg-black/30 backdrop-blur-lg border border-gray-600 p-6 rounded-lg shadow-lg text-white text-left max-w-md w-full mb-6">
+    <h2 class="text-lg font-bold mb-2 text-green-400">Информация о заказе</h2>
+    <p><span class="font-semibold">Номер заказа:</span> #{{ order.id }}</p>
+    <p><span class="font-semibold">Дата:</span> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+    <p><span class="font-semibold">Сумма:</span> {{ order.total_price }} сум</p>
+    <p><span class="font-semibold">Адрес:</span> {{ order.address }}</p>
   </div>
   {% endif %}
 
-  <!-- 🔙 Кнопка назад -->
-  <a href="{% url 'products:index' %}" class="pulse-button bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded shadow">
+  <!-- 🔙 Кнопка на главную -->
+  <a href="{% url 'products:index' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow-lg transition transform hover:scale-105">
     ⬅ Вернуться на главную
   </a>
 
-  <!-- 👏 Финальное сообщение -->
-  <div class="text-center mt-10 text-white">
-    <h2 class="text-3xl font-bold">🎉 Спасибо за заказ!</h2>
-    <p class="mt-4 text-lg">Мы скоро с вами свяжемся.</p>
+  <!-- 🥳 Благодарность -->
+  <div class="mt-10 text-white">
+    <h2 class="text-2xl font-bold">🎉 Спасибо за заказ!</h2>
+    <p class="mt-2 text-base">Мы скоро с вами свяжемся.</p>
   </div>
 </div>
 {% endblock %}
