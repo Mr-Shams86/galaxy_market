@@ -13,35 +13,49 @@
       🛒 Ваша корзина
     </h2>
 
-    {% if products %}
+    {% if items %}
       <ul class="space-y-4">
-        {% for product in products %}
+        {% for item in items %}
           <li class="border p-4 rounded bg-white/20 text-white flex justify-between items-center transition duration-300 hover:bg-white/30">
-            <div class="flex flex-col justify-center">
-              <p class="text-lg font-semibold">{{ product.name }}</p>
-              <p class="text-green-300 text-sm mt-1">$ {{ product.price }}</p>
+            <div>
+              <p class="text-lg font-semibold">{{ item.product.name }}</p>
+              <p class="text-green-300 text-sm mt-1">$ {{ item.product.price }} × {{ item.quantity }}</p>
             </div>
-            <a href="{% url 'orders:remove_from_cart' product.id %}"
-               class="ml-4 w-28 h-10 flex items-center justify-center bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded transition duration-200">
-              ❌ Удалить
-            </a>
+
+            <div class="flex gap-2 items-center">
+              <!-- Уменьшить -->
+              <a href="{% url 'orders:remove_quantity' item.product.id %}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded">
+                ➖
+              </a>
+
+              <!-- Увеличить -->
+              <a href="{% url 'orders:add_quantity' item.product.id %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded">
+                ➕
+              </a>
+
+              <!-- Удалить -->
+              <a href="{% url 'orders:remove_from_cart' item.product.id %}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+                ❌
+              </a>
+            </div>
           </li>
         {% endfor %}
       </ul>
 
+      <!-- Итого -->
       {% if total %}
         <p class="text-right mt-6 text-lg font-bold text-green-400">
           🧾 Итого: $ {{ total }}
         </p>
       {% endif %}
 
+      <!-- Оформить заказ -->
       <div class="mt-6 text-right">
         <a href="{% url 'orders:checkout' %}"
           class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition duration-200 shadow-lg">
           ✅ <span>Оформить заказ</span>
         </a>
       </div>
-
     {% else %}
       <p class="text-center text-gray-300 mt-6">Корзина пуста 😿</p>
     {% endif %}
