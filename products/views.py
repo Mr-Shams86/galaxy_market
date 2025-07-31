@@ -13,7 +13,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from products.mixins import SellerRequiredMixin
-from .models import Product, OrderDetail
+from .models import Product
 
 
 class ProductListView(ListView):

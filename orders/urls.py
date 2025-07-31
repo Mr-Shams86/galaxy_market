@@ -7,6 +7,7 @@ from .views import (
     add_to_cart,
     remove_quantity,
     remove_from_cart,
+    success_view,
 )
 
 app_name = "orders"
@@ -18,5 +19,6 @@ urlpatterns = [
     path("remove_one/<int:product_id>/", remove_quantity, name="remove_quantity"),  # ➖ уменьшить
     path("delete/<int:product_id>/", remove_from_cart, name="remove_from_cart"),  # ❌ удалить
     path("checkout/", checkout_view, name="checkout"),
+    path("success/", success_view, name="success"),
     path("my/", my_orders_view, name="my_orders"),
 ]

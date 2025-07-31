@@ -1,7 +1,13 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from products.models.product import Product
 
+from .forms import CheckoutForm
+
+from .models import Order, OrderItem
+
+
+@login_required
 def cart_view(request):
     cart = request.session.get('cart', {})
     products = Product.objects.filter(id__in=cart.keys())
@@ -24,12 +30,46 @@ def cart_view(request):
         "total": total,
     })
 
-
+@login_required
 def checkout_view(request):
-    return render(request, "orders/checkout.html")
+    cart = request.session.get('cart', {})
+    if not cart:
+        return redirect('orders:cart')
 
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            # Сохраняем заказ
+            order = Order.objects.create(
+                customer=request.user,
+                name=form.cleaned_data['name'],
+                phone=form.cleaned_data['phone'],
+                address=form.cleaned_data['address'],
+            )
 
+            products = Product.objects.filter(id__in=cart.keys())
+            for product in products:
+                quantity = cart[str(product.id)]
+                OrderItem.objects.create(
+                    order=order,
+                    product=product,
+                    quantity=quantity,
+                    price=product.price,
+                )
+
+            # Очищаем корзину
+            request.session['cart'] = {}
+            request.session.modified = True
+
+            return redirect('orders:success')  # Страница "Спасибо"
+    else:
+        form = CheckoutForm()
+
+    return render(request, 'orders/checkout.html', {'form': form})
+
+@login_required
 def add_to_cart(request, product_id):
+    Product = get_object_or_404(Product, pk=product_id)
     cart = request.session.get('cart', {})
     product_id_str = str(product_id)
     cart[product_id_str] = cart.get(product_id_str, 0) + 1
@@ -38,6 +78,7 @@ def add_to_cart(request, product_id):
     return redirect('orders:cart')
 
 
+@login_required
 def remove_from_cart(request, product_id):
     cart = request.session.get('cart', {})
     product_id_str = str(product_id)
@@ -48,10 +89,12 @@ def remove_from_cart(request, product_id):
     return redirect('orders:cart')
 
 
+@login_required
 def add_quantity(request, product_id):
     return add_to_cart(request, product_id)
 
 
+@login_required
 def remove_quantity(request, product_id):
     cart = request.session.get('cart', {})
     product_id_str = str(product_id)
@@ -73,3 +116,7 @@ def my_orders_view(request):
         {"id": 12346, "items": 1, "date": "2025-06-18"},
     ]
     return render(request, "orders/my_orders.html", {"orders": orders})
+
+
+def success_view(request):
+    return render(request, 'payment_success.html')
