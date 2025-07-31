@@ -41,7 +41,7 @@ def checkout_view(request):
         if form.is_valid():
             # Сохраняем заказ
             order = Order.objects.create(
-                customer=request.user,
+                user=request.user,
                 name=form.cleaned_data['name'],
                 phone=form.cleaned_data['phone'],
                 address=form.cleaned_data['address'],
@@ -69,7 +69,7 @@ def checkout_view(request):
 
 @login_required
 def add_to_cart(request, product_id):
-    Product = get_object_or_404(Product, pk=product_id)
+    product = get_object_or_404(Product, pk=product_id)
     cart = request.session.get('cart', {})
     product_id_str = str(product_id)
     cart[product_id_str] = cart.get(product_id_str, 0) + 1
