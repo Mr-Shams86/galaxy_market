@@ -6,7 +6,13 @@ from products.models.product import Product
 def cart_view(request):
     cart = request.session.get('cart', [])
     products = Product.objects.filter(id__in=cart)
-    return render(request, "orders/cart.html", {"products": products})
+
+    total = sum(p.price for p in products)  # 👈 Считаем сумму
+
+    return render(request, "orders/cart.html", {
+        "products": products,
+        "total": total  # 👈 Передаём в шаблон
+    })
 
 
 def checkout_view(request):
@@ -19,6 +25,15 @@ def add_to_cart(request, product_id):
         cart.append(product_id)
         request.session['cart'] = cart
     return redirect('orders:cart')
+
+
+def remove_from_cart(request, product_id):
+    cart = request.session.get('cart', [])
+    if product_id in cart:
+        cart.remove(product_id)
+        request.session['cart'] = cart
+    return redirect('orders:cart')
+
 
 
 @login_required
