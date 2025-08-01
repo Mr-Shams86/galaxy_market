@@ -3,7 +3,6 @@
 {% block content %}
 <div class="flex flex-col items-center text-center text-green-600 fade-in px-4 mt-10 mb-16">
 
-
   <!-- ✅ Иконка -->
   <svg class="w-20 h-20 text-green-500 mb-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="10"/>
@@ -14,14 +13,30 @@
   <h1 class="text-3xl md:text-4xl font-bold mb-3">Оплата прошла успешно!</h1>
   <p class="text-white mb-6">Спасибо за покупку. Мы скоро с вами свяжемся.</p>
 
-  <!-- 🧾 Информация о заказе -->
   {% if order %}
+  <!-- 🧾 Информация о заказе -->
   <div class="bg-black/30 backdrop-blur-lg border border-gray-600 p-6 rounded-lg shadow-lg text-white text-left max-w-md w-full mb-6">
     <h2 class="text-lg font-bold mb-2 text-green-400">Информация о заказе</h2>
     <p><span class="font-semibold">Номер заказа:</span> #{{ order.id }}</p>
     <p><span class="font-semibold">Дата:</span> {{ order.created_at|date:"d.m.Y H:i" }}</p>
-    <p><span class="font-semibold">Сумма:</span> {{ order.total_price }} сум</p>
+    <p><span class="font-semibold">Имя:</span> {{ order.name }}</p>
+    <p><span class="font-semibold">Телефон:</span> {{ order.phone }}</p>
     <p><span class="font-semibold">Адрес:</span> {{ order.address }}</p>
+    <p><span class="font-semibold">Количество товаров:</span> {{ total_quantity }}</p>
+    <p><span class="font-semibold">Сумма:</span> ${{ order.total_price|floatformat:2 }}</p>
+  </div>
+
+  <!-- 📦 Список товаров -->
+  <div class="bg-black/20 backdrop-blur-sm border border-gray-600 p-4 rounded-lg shadow-md text-white text-left max-w-md w-full mb-6">
+    <h3 class="text-md font-bold mb-2 text-green-400">Товары в заказе:</h3>
+    <ul class="text-sm space-y-2">
+      {% for item in items %}
+        <li class="flex justify-between">
+          <span>{{ item.product.name }} — {{ item.quantity }} × ${{ item.price|floatformat:2 }}</span>
+          <span class="text-green-400 font-semibold">${{ item.subtotal|floatformat:2 }}</span>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
   {% endif %}
 
@@ -35,5 +50,6 @@
     <h2 class="text-2xl font-bold">🎉 Спасибо за заказ!</h2>
     <p class="mt-2 text-base">Мы скоро с вами свяжемся.</p>
   </div>
+
 </div>
 {% endblock %}

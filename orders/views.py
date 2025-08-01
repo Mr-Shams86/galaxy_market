@@ -25,9 +25,12 @@ def cart_view(request):
             "subtotal": subtotal,
         })
 
+    total_quantity = sum(item['quantity'] for item in items)
+    
     return render(request, "orders/cart.html", {
         "items": items,
         "total": total,
+        "total_quantity": total_quantity,
     })
 
 @login_required
@@ -130,6 +133,34 @@ def my_orders_view(request):
 
 @login_required
 def success_view(request):
-    latest_order = Order.objects.filter(user=request.user).order_by('-created_at').first()
-    return render(request, 'payment_success.html', {'order': latest_order})
+    latest_order = (
+        Order.objects
+        .filter(user=request.user)
+        .order_by('-created_at')
+        .prefetch_related("items__product")
+        .first()
+    )
+
+    if not latest_order:
+        return redirect('products:index')
+
+    # Собираем данные с подсчётом total_quantity и subtotal по каждому товару
+    items_with_subtotal = []
+    total_quantity = 0
+
+    for item in latest_order.items.all():
+        subtotal = item.price * item.quantity
+        total_quantity += item.quantity
+        items_with_subtotal.append({
+            "product": item.product,
+            "price": item.price,
+            "quantity": item.quantity,
+            "subtotal": subtotal,
+        })
+
+    return render(request, 'payment_success.html', {
+        'order': latest_order,
+        'total_quantity': total_quantity,
+        'items': items_with_subtotal,  # ✅ список с подсчитанными total'ами
+    })
 
