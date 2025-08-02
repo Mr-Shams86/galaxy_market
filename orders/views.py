@@ -123,12 +123,43 @@ def remove_quantity(request, product_id):
 
 @login_required
 def my_orders_view(request):
-    # Заглушка — позже подключишь реальные данные из модели Order
-    orders = [
-        {"id": 12345, "items": 2, "date": "2025-06-15"},
-        {"id": 12346, "items": 1, "date": "2025-06-18"},
-    ]
-    return render(request, "orders/my_orders.html", {"orders": orders})
+    orders = (
+        Order.objects
+        .filter(user=request.user)
+        .prefetch_related("items__product")
+        .order_by('-created_at')
+    )
+    
+    orders_data = []    
+    for order in orders:
+        items_with_subtotal = []
+        total_quantity = 0
+        total_price = 0
+
+        for item in order.items.all():
+            subtotal = item.price * item.quantity
+            total_quantity += item.quantity
+            total_price += subtotal
+            items_with_subtotal.append({
+                "product": item.product,
+                "price": item.price,
+                "quantity": item.quantity,
+                "subtotal": subtotal,
+            })
+
+        orders_data.append({
+            "order": order,
+            "items": items_with_subtotal,
+            "total_quantity": total_quantity,
+            "total_price": total_price,
+        })
+
+    return render(request, "orders/my_orders.html", {
+        "orders": orders_data,
+        "message": "У вас нет заказов." if not orders_data else None
+    })
+
+
 
 
 @login_required
