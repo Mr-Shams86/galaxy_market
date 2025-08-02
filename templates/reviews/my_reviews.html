@@ -9,9 +9,29 @@
 
 {% block content %}
 <div class="flex justify-center items-start min-h-screen pt-10">
-  <div class="lg:col-span-2 p-6 rounded-xl bg-black/30 backdrop-blur text-white border border-gray-700">
+  <div class="lg:col-span-2 p-6 rounded-xl bg-black/30 backdrop-blur text-white border border-gray-700 w-full max-w-2xl">
 
     <h2 class="text-2xl font-bold mb-6">💬 Мои отзывы</h2>
+
+    <!-- 📌 Форма добавления отзыва -->
+    <form method="post" class="mb-8">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="id_product" class="block mb-1 text-gray-300">Продукт</label>
+        {{ form.product|add_class:"w-full p-2 rounded bg-gray-800 border border-gray-600 text-white" }}
+      </div>
+      <div class="mb-4">
+        <label for="id_text" class="block mb-1 text-gray-300">Текст отзыва</label>
+        {{ form.text|add_class:"w-full p-2 rounded bg-gray-800 border border-gray-600 text-white" }}
+      </div>
+      <div class="mb-4">
+        <label for="id_rating" class="block mb-1 text-gray-300">Оценка</label>
+        {{ form.rating|add_class:"w-full p-2 rounded bg-gray-800 border border-gray-600 text-white" }}
+      </div>
+      <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+        💾 Добавить отзыв
+      </button>
+    </form>
 
     {% if reviews %}
       <div class="space-y-4">
@@ -24,6 +44,7 @@
               {% for _ in review.rating|star_range %} ⭐ {% endfor %}
               {% for _ in 5|subtract:review.rating %} ☆ {% endfor %}
             </p>
+            <p class="text-xs text-gray-500 mt-1">Оставлен: {{ review.created_at|date:"d.m.Y H:i" }}</p>
           </div>
         {% endfor %}
       </div>
@@ -34,4 +55,3 @@
   </div>
 </div>
 {% endblock %}
-
