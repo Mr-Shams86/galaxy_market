@@ -72,15 +72,16 @@ def delete_profile(request):
 
 # ✅ Публичный просмотр профиля пользователя
 def view_profile(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
+    target_user = get_object_or_404(User, pk=user_id)
     return render(
         request,
         "users/view_profile.html",
         {
-            "user": user,
-            "profile": user.profile,
+            "user": target_user,
+            "profile": target_user.profile,
         },
     )
+
 
 
 # ✅ Публичный профиль продавца

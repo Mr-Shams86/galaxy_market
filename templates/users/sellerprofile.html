@@ -26,6 +26,7 @@
 
       <!-- 📄 Данные -->
       <div class="flex-1 space-y-4">
+        <p><span class="text-gray-400">👤 Имя пользователя:</span> {{ seller.profile.nickname|default:seller.email }}</p>
         <p><span class="text-gray-400">📧 Email:</span> {{ seller.email }}</p>
         <p><span class="text-gray-400">📞 Контакт:</span> {{ seller.profile.contact_number|default:"—" }}</p>
         <p><span class="text-gray-400">📝 Bio:</span> {{ seller.profile.bio|default:"—" }}</p>

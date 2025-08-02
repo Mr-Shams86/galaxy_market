@@ -1,12 +1,15 @@
 {% extends "base.html" %} 
+
 {% block back_button %}
 <a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
   ⬅️ Назад
 </a>
-{% endblock %} {% block content %}
+{% endblock %} 
+
+{% block content %}
 <div class="container py-6">
   <h2 class="text-2xl font-bold mb-4">
-    Профиль {{ profile.user.username }}
+    Профиль {{ profile.user.username|default:profile.username|default:user.username }}
   </h2>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -27,14 +30,15 @@
     </div>
 
     <div class="lg:col-span-2 space-y-3 text-gray-700">
-      <p><strong>Email:</strong> {{ profile.user.email }}</p>
+      <p><strong>👤 Имя пользователя:</strong> {{ profile.nickname|default:"—" }}</p>
+      <p><strong>Email:</strong> {{ profile.user.email|default:user.email }}</p>
       <p><strong>Биография:</strong> {{ profile.bio|default:"—" }}</p>
-      <p><strong>Контакт:</strong> {{ profile.contact_number }}</p>
+      <p><strong>Контакт:</strong> {{ profile.contact_number|default:"—" }}</p>
       <p>
         <strong>Создан:</strong> {{ profile.created_at|date:"d.m.Y H:i" }}
       </p>
 
-      {% if request.user == user %}
+      {% if request.user == profile.user %}
       <a
         href="{% url 'users:edit_profile' %}"
         class="inline-block mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"

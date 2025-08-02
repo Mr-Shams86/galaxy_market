@@ -10,6 +10,19 @@ from .models import Profile
 
 
 class CustomUserCreationForm(UserCreationForm):
+    nickname = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full px-4 py-2 rounded bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500",
+                "placeholder": "Введите никнейм"
+            }
+        ),
+        label="Никнейм",
+        help_text="Это имя будет видно другим пользователям",
+    )
+
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(
@@ -64,7 +77,14 @@ class CustomUserCreationForm(UserCreationForm):
         user.email = self.cleaned_data["email"]
         if commit:
             user.save()
+            # Сохраняем nickname в профиль
+            nickname = self.cleaned_data.get("nickname")
+            if nickname:
+                profile, _ = Profile.objects.get_or_create(user=user)
+                profile.nickname = nickname
+                profile.save()
         return user
+
 
 
 
