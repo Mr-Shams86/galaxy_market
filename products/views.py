@@ -120,29 +120,18 @@ def create_checkout_session(request, id):
     checkout_session = stripe.checkout.Session.create(
         customer_email=request.user.email,
         payment_method_types=["card"],
-        line_items=[
-            {
-                "price_data": {
-                    "currency": "usd",
-                    "product_data": {"name": product.name},
-                    "unit_amount": int(product.price * 100),
-                },
-                "quantity": 1,
-            }
-        ],
+        line_items=[{
+            "price_data": {
+                "currency": "usd",
+                "product_data": {"name": product.name},
+                "unit_amount": int(product.price * 100),
+            },
+            "quantity": 1,
+        }],
         mode="payment",
-        success_url=request.build_absolute_uri(reverse("products:success"))
-        + "?session_id={CHECKOUT_SESSION_ID}",
+        success_url=request.build_absolute_uri(reverse("products:success")) +
+                    "?session_id={CHECKOUT_SESSION_ID}",
         cancel_url=request.build_absolute_uri(reverse("products:failed")),
-    )
-
-    print("CHECKOUT SESSION:", checkout_session)
-
-    OrderDetail.objects.create(
-        customer_username=request.user.email,
-        product=product,
-        stripe_payment_intent=checkout_session["id"],
-        amount=product.price,
     )
 
     return JsonResponse({"sessionId": checkout_session.id})
@@ -159,9 +148,11 @@ class PaymentSuccessView(TemplateView):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         session = stripe.checkout.Session.retrieve(session_id)
 
-        order = get_object_or_404(OrderDetail, stripe_payment_intent=session.id)
-        order.has_paid = True
-        order.save()
+        # Можно дополнительно проверить статус оплаты
+        # session.payment_status == "paid"
+        # session.status == "complete"
+        # и показать разные сообщения, если надо
+
         return render(request, self.template_name)
 
 
