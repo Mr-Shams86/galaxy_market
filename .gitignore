@@ -25,12 +25,10 @@ env/
 # ====================
 # Статические файлы, собранные через collectstatic
 staticfiles/
+static/
 
 # Media — загружаемые пользователями файлы
-images/
-catalog/
-images/catalog/
-profile_images/
+media/
 
 # ====================
 # 📦 Node / Tailwind
