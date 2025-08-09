@@ -27,7 +27,8 @@ env/
 staticfiles/
 
 # Media — загружаемые пользователями файлы
-
+images/
+profile_images/
 
 # ====================
 # 📦 Node / Tailwind
