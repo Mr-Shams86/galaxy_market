@@ -28,6 +28,8 @@ staticfiles/
 
 # Media — загружаемые пользователями файлы
 images/
+catalog/
+images/catalog/
 profile_images/
 
 # ====================
