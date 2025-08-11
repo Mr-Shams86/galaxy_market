@@ -1,5 +1,5 @@
 {% extends "base.html" %} 
-
+{% load static %}
 {% block back_button %}
 <a href="javascript:history.back()" class="inline-block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4">
   ⬅️ Назад
@@ -14,19 +14,8 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
     <div class="rounded shadow-md">
-      {% if profile.avatar %}
-      <img
-        src="{{ profile.avatar.url }}"
-        alt="Аватар"
-        class="w-72 h-72 object-cover rounded"
-      />
-      {% else %}
-      <img
-        src="{% static 'img/default/default-avatar.png' %}"
-        alt="Нет фото"
-        class="w-72 h-72 object-cover rounded"
-      />
-      {% endif %}
+      <img src="{{ profile.avatar_safe_url }}" alt="Аватар" class="w-72 h-72 object-cover rounded" />
+
     </div>
 
     <div class="lg:col-span-2 space-y-3 text-gray-700">

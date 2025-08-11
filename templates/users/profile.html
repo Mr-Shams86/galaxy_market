@@ -13,11 +13,7 @@
   <div class="grid p-10 grid-cols-1 lg:grid-cols-3 sm:grid-cols-1 gap-8">
     <!-- Аватар -->
     <div class="rounded shadow-lg text-center">
-      {% if user.profile.avatar %}
-        <img src="{{ user.profile.avatar.url }}" alt="Avatar" class="w-72 h-72 object-cover rounded mx-auto" />
-      {% else %}
-        <img src="{% static 'img/default/default-avatar.png' %}" alt="No avatar" class="w-72 h-72 object-cover rounded mx-auto" />
-      {% endif %}
+      <img src="{{ user.profile.avatar_safe_url }}" alt="Avatar" class="w-72 h-72 object-cover rounded mx-auto" />
     </div>
 
     <!-- Информация -->

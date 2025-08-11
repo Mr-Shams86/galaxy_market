@@ -5,6 +5,9 @@ from django.utils.html import format_html
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 
+from django.core.files.storage import default_storage
+from django.templatetags.static import static
+
 User = get_user_model()
 
 
@@ -55,31 +58,36 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"Профиль пользователя {self.user.email}"
+    
+    # 🔒 Безопасный URL аватара: если файла нет — отдаём дефолт из static
+    @property
+    def avatar_safe_url(self) -> str:
+        if self.avatar and default_storage.exists(self.avatar.name):
+            return self.avatar.url
+        return static("img/default/default-avatar.png")
 
     def avatar_tag(self):
-        if self.avatar:
-            return format_html(
-                '<img src="{}" width="50" height="50" style="object-fit:cover;border-radius:6px;" />',
-                self.avatar.url,
-            )
-        return "-"
+        # Используем безопасный URL, чтобы админка не падала на битых ссылках
+        return format_html(
+            '<img src="{}" width="50" height="50" style="object-fit:cover;border-radius:6px;" />',
+            self.avatar_safe_url,
+        )
 
     avatar_tag.short_description = "Аватар"
 
     def clean(self):
-        # Ограничение: Ник не может быть "admin"
-        if self.nickname.lower() == "admin":
-            raise ValidationError("Ник 'admin' запрещён.")
+        # ✔️ ник может быть пустым — учитываем это
+        if self.nickname:
+            if self.nickname.lower() == "admin":
+                raise ValidationError("Ник 'admin' запрещён.")
+            if not re.match(r"^[a-zA-Z0-9_]+$", self.nickname):
+                raise ValidationError(
+                    "Ник может содержать только латиницу, цифры и подчёркивания."
+                )
 
-        # Ограничение: Только латиница, цифры, подчёркивания
-        if not re.match(r"^[a-zA-Z0-9_]+$", self.nickname):
-            raise ValidationError(
-                "Ник может содержать только латиницу, цифры и подчёркивания."
-            )
-
-        # Проверка био и аватара (у тебя уже есть)
         if self.avatar and self.avatar.size > 2 * 1024 * 1024:
             raise ValidationError("Аватар не должен превышать 2MB.")
 
         if self.bio and len(self.bio) > 500:
             raise ValidationError("Описание не должно превышать 500 символов.")
+
