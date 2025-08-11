@@ -5,80 +5,68 @@
       <!-- ЛОГО -->
       <div class="flex items-center space-x-3">
         <a href="{% url 'products:index' %}" class="flex items-center">
-          <img
-            src="{% static 'img/logo/logo.jpg' %}"
-            alt="logo"
-            class="h-20 w-20"
-          />
-          <span class="font-semibold text-xl ml-2">🛒 Galaxy Market</span>
+          <img src="{% static 'img/logo/logo.jpg' %}" alt="logo" class="h-14 w-14 rounded-full" />
+          <span class="font-semibold text-lg ml-2">🛒 Galaxy Market</span>
         </a>
       </div>
 
-      <!-- НАВИГАЦИЯ -->
-      <div class="flex space-x-5 items-center">
-        <a
-          href="{% url 'products:index' %}"
-          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'index' %}border-b-2 border-green-400{% endif %}"
-        >
-          Главная
-        </a>
+      <!-- Бургер на мобилках -->
+      <div class="md:hidden">
+        <button id="menu-btn" class="focus:outline-none">
+          <!-- иконка -->
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Меню (десктоп) -->
+      <div id="menu" class="hidden md:flex space-x-5 items-center">
+        <a href="{% url 'products:index' %}" class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'index' %}border-b-2 border-green-400{% endif %}">Главная</a>
+
         {% if user.is_authenticated and user.profile.is_seller %}
-        <a
-          href="{% url 'products:add_item' %}"
-          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'add_item' %}border-b-2 border-green-400{% endif %}"
-        >
-          Новый товар
-        </a>
+        <a href="{% url 'products:add_item' %}" class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'add_item' %}border-b-2 border-green-400{% endif %}">Новый товар</a>
         {% endif %}
 
-
         {% if user.is_authenticated %}
-        <a
-          href="{% url 'users:profile' %}"
-          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'profile' %}border-b-2 border-green-400{% endif %}"
-        >
-          Профиль
-        </a>
-        <a
-          href="{% url 'orders:my_orders' %}"
-          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'my_orders' %}border-b-2 border-green-400{% endif %}"
-        >
-          Мои заказы
-        </a>
-        <a
-          href="{% url 'orders:cart' %}"
-          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'cart' %}border-b-2 border-green-400{% endif %}"
-        >
-          Корзина
-        </a>
-        <a
-          href="{% url 'orders:checkout' %}"
-          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'checkout' %}border-b-2 border-green-400{% endif %}"
-        >
-          Оплата
-        </a>
-        <a
-          href="{% url 'reviews:my_reviews' %}"
-          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'my_reviews' %}border-b-2 border-green-400{% endif %}"
-        >
-          Отзывы
-        </a>
-        <a
-          href="{% url 'users:logout_confirm' %}"
-          class="py-2 px-3 font-medium hover:text-red-300 {% if request.resolver_match.url_name == 'logout_confirm' %}border-b-2 border-red-300{% endif %}"
-        >
-          Выйти
-        </a>
-
+        <a href="{% url 'users:profile' %}" class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'profile' %}border-b-2 border-green-400{% endif %}">Профиль</a>
+        <a href="{% url 'orders:my_orders' %}" class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'my_orders' %}border-b-2 border-green-400{% endif %}">Мои заказы</a>
+        <a href="{% url 'orders:cart' %}" class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'cart' %}border-b-2 border-green-400{% endif %}">Корзина</a>
+        <a href="{% url 'orders:checkout' %}" class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'checkout' %}border-b-2 border-green-400{% endif %}">Оплата</a>
+        <a href="{% url 'reviews:my_reviews' %}" class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'my_reviews' %}border-b-2 border-green-400{% endif %}">Отзывы</a>
+        <a href="{% url 'users:logout_confirm' %}" class="py-2 px-3 font-medium hover:text-red-300 {% if request.resolver_match.url_name == 'logout_confirm' %}border-b-2 border-red-300{% endif %}">Выйти</a>
         {% else %}
-        <a
-          href="{% url 'users:login' %}"
-          class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'login' %}border-b-2 border-green-400{% endif %}"
-        >
-          Войти или зарегистрироватся
-        </a>
+        <a href="{% url 'users:login' %}" class="py-2 px-3 font-medium hover:text-green-400 {% if request.resolver_match.url_name == 'login' %}border-b-2 border-green-400{% endif %}">Войти или зарегистрироватся</a>
         {% endif %}
       </div>
     </div>
+
+    <!-- Меню (мобильное) -->
+    <div id="mobile-menu" class="hidden flex-col space-y-2 md:hidden pb-4">
+      <a href="{% url 'products:index' %}" class="block py-2 px-3 hover:bg-gray-800 rounded">Главная</a>
+
+      {% if user.is_authenticated and user.profile.is_seller %}
+      <a href="{% url 'products:add_item' %}" class="block py-2 px-3 hover:bg-gray-800 rounded">Новый товар</a>
+      {% endif %}
+
+      {% if user.is_authenticated %}
+      <a href="{% url 'users:profile' %}" class="block py-2 px-3 hover:bg-gray-800 rounded">Профиль</a>
+      <a href="{% url 'orders:my_orders' %}" class="block py-2 px-3 hover:bg-gray-800 rounded">Мои заказы</a>
+      <a href="{% url 'orders:cart' %}" class="block py-2 px-3 hover:bg-gray-800 rounded">Корзина</a>
+      <a href="{% url 'orders:checkout' %}" class="block py-2 px-3 hover:bg-gray-800 rounded">Оплата</a>
+      <a href="{% url 'reviews:my_reviews' %}" class="block py-2 px-3 hover:bg-gray-800 rounded">Отзывы</a>
+      <a href="{% url 'users:logout_confirm' %}" class="block py-2 px-3 text-red-300 hover:bg-gray-800 rounded">Выйти</a>
+      {% else %}
+      <a href="{% url 'users:login' %}" class="block py-2 px-3 hover:bg-gray-800 rounded">Войти или зарегистрироватся</a>
+      {% endif %}
+    </div>
   </div>
 </nav>
+
+<script>
+  document.getElementById('menu-btn').addEventListener('click', function () {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+</script>
