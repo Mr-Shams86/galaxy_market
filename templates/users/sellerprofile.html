@@ -10,7 +10,10 @@
 <!-- 🌌 Карточка профиля -->
 <div class="flex items-center justify-center px-4 mt-10 mb-10">
   <div class="lg:col-span-2 p-6 rounded-xl bg-black/30 backdrop-blur text-white border border-gray-700">
-    <h2 class="text-2xl font-bold mb-6">Профиль продавца: {{ seller.username }}</h2>
+    <h2 class="text-2xl font-bold mb-6">Профиль продавца: 
+      {% firstof seller.profile.nickname seller.username %}
+    </h2>
+
 
     <div class="flex flex-col md:flex-row gap-8">
       <!-- 🧑‍🦰 Аватар -->

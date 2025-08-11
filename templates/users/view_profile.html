@@ -9,8 +9,9 @@
 {% block content %}
 <div class="container py-6">
   <h2 class="text-2xl font-bold mb-4">
-    Профиль {{ profile.user.username|default:profile.username|default:user.username }}
+  Профиль {% firstof profile.nickname profile.user.username user.username %}
   </h2>
+
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
     <div class="rounded shadow-md">
