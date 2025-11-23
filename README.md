@@ -1,123 +1,147 @@
 
 # 🚀 Galaxy Market
 
-**Galaxy Market — это учебный e-commerce проект, предназначенный для демонстрации навыков работы с Django, базами данных, Docker и адаптивной вёрсткой. Реализована полноценная система интернет-магазина с возможностью размещения заказов, регистрации пользователей и панелью администратора.**
+**Galaxy Market is an educational e-commerce project designed to demonstrate skills in working with Django, databases, Docker, and responsive layout. It implements a full-featured online store system with order placement, user registration, and an admin panel.**
 
-**Интернет-магазин оригинальных запчастей и аксессуаров для техники **Samsung**.  
-**Платформа создана на Django с адаптивным дизайном, удобной корзиной и системой заказов.**
+**An online store of original spare parts and accessories for Samsung devices.
+The platform is built with Django, features a responsive design, a convenient shopping cart, and an order management system.**
 
 ## ![Galaxy Market Screenshot]
-## 📷 Скриншоты
+## 📷 Screenshots
 
-### 🛍️ Каталог товаров
-![Каталог](static/media/images/screenshots/catalog.png)
+### 🛍️ Product Catalog
+![Catalog](static/media/images/screenshots/catalog.png)
 
-### ➕ Добавление товара
-![Добавление товара](static/media/images/screenshots/add-product.png)
+### ➕ Add Product
+![Add Product](static/media/images/screenshots/add-product.png)
 
-### 👤️ Профиль
-![Отзывы](static/media/images/screenshots/profile.png)
+### 👤️ Profile
+![Profile](static/media/images/screenshots/profile.png)
 
-### 📝️ Редактирование профиля
-![Отзывы](static/media/images/screenshots/edit-profile.png)
+### 📝️ Edit Profile
+![Edit Profile](static/media/images/screenshots/edit-profile.png)
 
-### 📦 Оформление заказа
-![Оформление заказа](static/media/images/screenshots/checkout.png)
+### 📦 Checkout
+![Checkout](static/media/images/screenshots/checkout.png)
 
-### 🛒 Корзина
-![Корзина](static/media/images/screenshots/cart.png)
+### 🛒 Cart
+![Cart](static/media/images/screenshots/cart.png)
 
-### ✅ Подтверждение заказа
-![Подтверждение](static/media/images/screenshots/confirm.png)
-
-
-### 📦 Мои заказы
-![История заказов](static/media/images/screenshots/my-orders.png)
-
-### 💬 Отзывы пользователей
-![Отзывы](static/media/images/screenshots/reviews.png)
+### ✅ Order Confirmation
+![Order Confirmation](static/media/images/screenshots/confirm.png)
 
 
+### 📦 My Orders
+![My Orders](static/media/images/screenshots/my-orders.png)
+
+### 💬 User Reviews
+![Reviews](static/media/images/screenshots/reviews.png)
 
 
-## ⚙️ Технологии
-
-- 🐍 **Python 3.10** — основной язык разработки
-- 🌐 **Django 4.0.10** — веб-фреймворк (MTV архитектура)
-- 🐘 **PostgreSQL 15** — СУБД для хранения данных
-- 🐳 **Docker + Docker Compose** — контейнеризация проекта
-- 🧠 **Redis 7** — хранилище состояний и кэш (через docker)
-- 🎨 **Tailwind CSS** — утилитарный CSS-фреймворк
-- 🔧 **PostCSS + Autoprefixer** — для сборки стилей Tailwind
-- 💳 **Stripe** — интеграция онлайн-платежей
-- 🖼️ **Pillow** — обработка изображений (аватары, каталог)
-- 🔗 **django-widget-tweaks** — управление полями форм в шаблонах
-- 🌍 **django-cors-headers** — обработка CORS-запросов (если будет frontend отдельно)
-- 🔐 **python-dotenv** — загрузка переменных окружения из `.env`
-- 🧰 **psycopg2-binary** — драйвер для PostgreSQL
 
 
-## 🔥 Основной функционал
+## ⚙️ Technologies
 
-- 👤 Регистрация / авторизация пользователей
-- 🛍️ Каталог товаров с категориями
-- 🧺 Добавление товаров в корзину
-- 💳 Оформление заказа (имя, телефон, адрес)
-- 🔄 Просмотр и история заказов
-- 📦 Профиль пользователя и продавца
-- ✨ Отзывы, оплата и подтверждение
-- 🧾 Адаптивный интерфейс под все устройства
-- 🖼️ Загрузка и отображение аватара (с возможностью редактирования)
+🐍 Python 3.10 — main programming language
 
-## 🛠️ Возможности административной панели
+🌐 Django 4.0.10 — web framework (MTV architecture)
 
-- Управление пользователями
-- Управление товарами и категориями
-- Просмотр и обработка заказов
-- Работа с отзывами
+🐘 PostgreSQL 15 — database management system
+
+🐳 Docker + Docker Compose — project containerization
+
+🧠 Redis 7 — state storage and caching (via Docker)
+
+🎨 Tailwind CSS — utility-first CSS framework
+
+🔧 PostCSS + Autoprefixer — for Tailwind build process
+
+💳 Stripe — online payment integration
+
+🖼️ Pillow — image processing (avatars, catalog)
+
+🔗 django-widget-tweaks — form field customization in templates
+
+🌍 django-cors-headers — handling CORS requests (if frontend is separate)
+
+🔐 python-dotenv — loading environment variables from .env
+
+🧰 psycopg2-binary — PostgreSQL driver
 
 
-## 🐳 Установка и запуск через Docker
+🔥 Main Features
+
+👤 User registration / authentication
+
+🛍️ Product catalog with categories
+
+🧺 Adding products to cart
+
+💳 Order placement (name, phone, address)
+
+🔄 Order history and tracking
+
+📦 User and seller profiles
+
+✨ Reviews, payments and confirmations
+
+🧾 Fully responsive UI
+
+🖼️ Avatar upload and profile editing
+
+
+🛠️ Admin Panel Capabilities
+
+User management
+
+Product and category management
+
+Order processing
+
+Review moderation
+
+
+## 🐳 Installation & Run with Docker
 
 ```bash
-# 1. Клонируй репозиторий
+# 1. Clone repository
 git clone https://github.com/your_username/galaxy-market.git
 cd galaxy-market
 
-# 2. Построй и запусти контейнеры
+# 2. Build and run containers
 docker-compose up --build
 
-# 3. Открой в браузере
+# 3. Open in browser
 http://localhost:8000
 
-# 4. 🛠️ Начальная настройка (после запуска)
+# 4. 🛠️ Initial setup (after launch)
 
-    📌 Примените миграции:
+    📌 Apply migrations:
 
 # 5. docker-compose exec web python manage.py migrate
 
-    🔐 Создайте суперпользователя для доступа к админке:
+    🔐 Create superuser for admin panel:
 
 # 6. docker-compose exec web python manage.py createsuperuser
 
-
-# 7. 🔑 Админка доступна по адресу:
+# 7. 🔑 Admin panel available at:
 http://localhost:8000/admin/
+
 
 ```
 
 ---
 
-## 🔗 Ссылки
+## 🔗 Links
 
-- [Сайт проекта]
+- [Project website] — to be added
 
-- [GitHub репозиторий](https://https://github.com/Mr-Shams86/galaxy_market)
+- [GitHub repository:](https://https://github.com/Mr-Shams86/galaxy_market)
 
 
-## 📢 **Контакты**
+## 📢 **Contact**
 
-👤 **Автор**
+👤 **Author**
 
 - ๛Samer Shams๖
 
@@ -129,92 +153,93 @@ http://localhost:8000/admin/
 
 ---
 
-## 🏢 **Структура проекта Galaxy Market**
+## 🏢 **Galaxy Market — Project Structure**
 
 ```
-📦 Проект
-├── ⚙️ config/ — базовая конфигурация Django
-│   ├── admin.py — административные настройки
-│   ├── asgi.py — конфигурация ASGI
-│   ├── init.py
-│   ├── settings.py — основная конфигурация проекта
-│   ├── urls.py — маршруты верхнего уровня
-│   └── wsgi.py — конфигурация WSGI
+📦 Project
+├── ⚙️ config/ — Django base configuration
+│   ├── admin.py — admin settings
+│   ├── asgi.py — ASGI configuration
+│   ├── __init__.py
+│   ├── settings.py — main project settings
+│   ├── urls.py — top-level routes
+│   └── wsgi.py — WSGI configuration
 │
-├── 🐳 Docker & запускаемые файлы
-│   ├── docker-compose.yml — настройка Docker-сервисов
-│   ├── Dockerfile — инструкция сборки
-│   ├── entrypoint.sh — скрипт запуска контейнера
-│   └── manage.py — точка входа Django
+├── 🐳 Docker & run files
+│   ├── docker-compose.yml — Docker services configuration
+│   ├── Dockerfile — build instructions
+│   ├── entrypoint.sh — container startup script
+│   └── manage.py — Django entry point
 │
-├── 🖼 media/ — директория пользовательских файлов
-│   ├── images/catalog/ — изображения товаров по категориям
+├── 🖼 media/ — user-uploaded files
+│   ├── images/catalog/ — product images by category
 │   │   ├── accessories, batteries, headphones, phones, etc.
-│   └── profile_images/ — аватары пользователей
+│   └── profile_images/ — user avatars
 │
-├── 🛒 orders/ — управление заказами
-│   ├── admin.py — регистрация моделей в админке
-│   ├── forms.py — формы для оформления заказа
-│   ├── migrations/ — миграции БД
-│   ├── models.py — модели Order и OrderItem
-│   ├── urls.py — маршруты
-│   └── views.py — логика отображения и обработки
+├── 🛒 orders/ — order management
+│   ├── admin.py — model registration in admin panel
+│   ├── forms.py — order forms
+│   ├── migrations/ — database migrations
+│   ├── models.py — Order and OrderItem models
+│   ├── urls.py — routes
+│   └── views.py — business logic
 │
-├── 🛍 products/ — каталог товаров
+├── 🛍 products/ — product catalog
 │   ├── admin.py
 │   ├── apps.py
-│   ├── mixins.py — вспомогательные классы
+│   ├── mixins.py — helper/mixin classes
 │   ├── models/
-│   │   └── product.py — модель товара
+│   │   └── product.py — product model
 │   ├── migrations/
-│   ├── tests.py — тесты для каталога
+│   ├── tests.py — catalog tests
 │   ├── urls.py
 │   └── views.py
 │
-├── 💬 reviews/ — управление отзывами
-│   ├── forms.py — форма добавления отзыва
-│   ├── models.py — модель Review
+├── 💬 reviews/ — reviews management
+│   ├── forms.py — review form
+│   ├── models.py — Review model
 │   ├── templatetags/
-│   │   └── extras.py — кастомные шаблонные фильтры
+│   │   └── extras.py — custom template filters
 │   ├── migrations/
 │   ├── urls.py
 │   └── views.py
 │
-├── 👤 users/ — аутентификация и профили
+├── 👤 users/ — authentication and profiles
 │   ├── admin.py
 │   ├── apps.py
 │   ├── forms.py
 │   ├── models/
-│   │   ├── user.py — кастомная модель пользователя
-│   │   └── profile.py — профиль пользователя
+│   │   ├── user.py — custom user model
+│   │   └── profile.py — user profile model
 │   ├── migrations/
-│   ├── signals.py — авто-создание профиля при регистрации
+│   ├── signals.py — automatic profile creation on registration
 │   ├── templatetags/
-│   │   └── form_filters.py — кастомные фильтры
+│   │   └── form_filters.py — custom template filters
 │   ├── tests.py
 │   ├── urls.py
 │   └── views.py
 │
-├── 📄 templates/ — HTML-шаблоны
-│   ├── base.html — базовый шаблон
-│   ├── navbar.html — верхняя панель
-│   ├── orders/ — корзина, оформление, мои заказы
-│   ├── products/ — каталог, детали, добавление, удаление
-│   ├── reviews/ — мои отзывы
-│   └── users/ — логин, регистрация, профиль, удаление
+├── 📄 templates/ — HTML templates
+│   ├── base.html — base template
+│   ├── navbar.html — top navigation bar
+│   ├── orders/ — cart, checkout, my orders
+│   ├── products/ — catalog, details, add, delete
+│   ├── reviews/ — my reviews
+│   └── users/ — login, registration, profile, delete
 │
-├── 🌐 static/ — статика проекта (CSS/картинки)
-│   ├── img/ — изображения интерфейса
+├── 🌐 static/ — project static files (CSS/images)
+│   ├── img/ — interface images
 │   │   ├── background, default, logo
 │   └── products/
-│   ├── styles.css — кастомные стили
-│   └── tailwind.css — стили Tailwind
+│   ├── styles.css — custom styles
+│   └── tailwind.css — Tailwind styles
 │
-├── 📦 requirements.txt — зависимости Python
-├── 📦 package.json / package-lock.json — зависимости Node (Tailwind)
-├── 🌀 tailwind.config.js / postcss.config.js — настройки TailwindCSS
-├── 📄 README.md — описание проекта
-├── 📄 structure.txt — сохранённая структура проекта
-└── 📄 url_adress_in_my_Gadjet_Shop.txt — полезные ссылки/адреса
+├── 📦 requirements.txt — Python dependencies
+├── 📦 package.json / package-lock.json — Node dependencies (Tailwind)
+├── 🌀 tailwind.config.js / postcss.config.js — Tailwind configuration
+├── 📄 README.md — project description
+├── 📄 structure.txt — saved project structure
+└── 📄 url_adress_in_my_Gadjet_Shop.txt — useful links/addresses
+
 
 ```
