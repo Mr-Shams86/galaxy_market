@@ -39,7 +39,6 @@ The platform is built with Django, features a responsive design, a convenient sh
 
 
 
-
 ## ⚙️ Technologies
 
 🐍 Python 3.10 — main programming language
@@ -69,7 +68,8 @@ The platform is built with Django, features a responsive design, a convenient sh
 🧰 psycopg2-binary — PostgreSQL driver
 
 
-🔥 Main Features
+
+## 🔥 Main Features
 
 👤 User registration / authentication
 
@@ -90,15 +90,15 @@ The platform is built with Django, features a responsive design, a convenient sh
 🖼️ Avatar upload and profile editing
 
 
-🛠️ Admin Panel Capabilities
+## 🛠️ Admin Panel Capabilities
 
-User management
+* User management
 
-Product and category management
+* Product and category management
 
-Order processing
+* Order processing
 
-Review moderation
+* Review moderation
 
 
 ## 🐳 Installation & Run with Docker
